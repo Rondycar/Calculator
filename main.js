@@ -4,63 +4,65 @@ let output = document.querySelector('h1');
         let indicator = 0;
         let num1 = '';
         let num2 = '';
+        let counter = 0;
         
-        
+
+
+
         let but1 = document.querySelector('.but1');
         but1.onclick = function(){
-            accum.push(1);
-            displayAccum();
+            accumPush(1);
         }
         let but2 = document.querySelector('.but2');
         but2.onclick = function(){
-            accum.push(2);
-            displayAccum();
+            accumPush(2);
         }
         let but3 = document.querySelector('.but3');
         but3.onclick = function(){
-            accum.push(3);
-            displayAccum();
+            accumPush(3);
         }
         let but4 = document.querySelector('.but4');
         but4.onclick = function(){
-            accum.push(4);
-            displayAccum();
+            accumPush(4);
         }
         let but5 = document.querySelector('.but5');
         but5.onclick = function(){
-            accum.push(5);
-            displayAccum();
+            accumPush(5);
         }
         let but6 = document.querySelector('.but6');
         but6.onclick = function(){
-            accum.push(6);
-            displayAccum();
+            accumPush(6);
         }
         let but7 = document.querySelector('.but7');
         but7.onclick = function(){
-            accum.push(7);
-            displayAccum();
+            accumPush(7);
         }
         let but8 = document.querySelector('.but8');
         but8.onclick = function(){
-            accum.push(8);
-            displayAccum();
+            accumPush(8);
         }
         let but9 = document.querySelector('.but9');
         but9.onclick = function(){
-            accum.push(9);
-            displayAccum();
+            accumPush(9);
         }
         let but0 = document.querySelector('.but0');
         but0.onclick = function(){
-            accum.push(0);
+            if (accum.length > 0) {
+                accumPush(0);
+            }
+        }
+
+        function accumPush(e){
+            if (accum.length<10) {
+                accum.push(e);
+            }
             displayAccum();
         }
 
         function displayAccum(){
-            let display = '';
+            let display = ' ';
             for (const iterator of accum) {
-                display += iterator+' ';
+                display += iterator+'';
             }
             output.textContent = display;
         }
@@ -91,33 +93,90 @@ let output = document.querySelector('h1');
         }
         let butRavno = document.querySelector('.butRavno');
         butRavno.onclick = function(){
-            for (const iterator of accum) {
-                num2 += iterator;
+            if (counter==0) {
+                for (const iterator of accum) {
+                    num2 += iterator;
+                }
+                num2 = Number(num2);
+                for (const iterator of accum2) {
+                    num1 += iterator;
+                }
+                num1 = Number(num1);
+                
+                switch (indicator) {
+                    case 1:
+                        if ((num1+num2)>999999999) {
+                            output.textContent = 'too mutch!';
+                        } else {
+                            output.textContent = num1+num2;
+                        }
+                        break;
+                    case 2:
+                        output.textContent = num1-num2;
+                        break;
+                    case 3:
+                        if ((num1*num2)>999999999) {
+                            output.textContent = 'too mutch!';
+                        } else {
+                            output.textContent = num1*num2;
+                        }
+                        break;
+                    case 4:
+                        output.textContent = num1/num2;
+                        break;
+                    default:
+                        break;
+                }
+                num1 = '';
+                num2 = '';
+                counter++;
+            } else {
+                for (const iterator of accum) {
+                    num2 += iterator;
+                }
+                num2 = Number(num2);
+                num1 = Number(output.textContent);
+                
+                switch (indicator) {
+                    case 1:
+                        if ((num1+num2)>999999999) {
+                            output.textContent = 'too mutch!';
+                        } else {
+                            output.textContent = num1+num2;
+                        }
+                        break;
+                    case 2:
+                        output.textContent = num1-num2;
+                        break;
+                    case 3:
+                        if ((num1*num2)>999999999) {
+                            output.textContent = 'too mutch!';
+                        } else {
+                            output.textContent = num1*num2;
+                        }
+                        break;
+                    case 4:
+                        output.textContent = num1/num2;
+                        break;
+                    default:
+                        break;
+                }
+                num1 = '';
+                num2 = '';
+                counter++;
             }
-            num2 = Number(num2);
-            for (const iterator of accum2) {
-                num1 += iterator;
-            }
-            num1 = Number(num1);
-            
-            switch (indicator) {
-                case 1:
-                    output.textContent = num1+num2;
-                    break;
-                case 2:
-                    output.textContent = num1-num2;
-                    break;
-                case 3:
-                    output.textContent = num1*num2;
-                    break;
-                case 4:
-                    output.textContent = num1/num2;
-                    break;
-                default:
-                    break;
-            }
+
 
             
             
         }
 
+        let butReset = document.querySelector('.butReset');
+        butReset.onclick = function(){
+            accum = [];
+            accum2 = [];
+            num1 = '';
+            num2 = '';
+            output.textContent = '0';
+        }
+        
